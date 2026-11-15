@@ -1,0 +1,43 @@
+# Experimental free deployment: no paid database, disk, or worker.
+# Runtime data is temporary and may disappear on restart/redeploy.
+services:
+  - type: web
+    name: peakcut
+    runtime: docker
+    plan: free
+    numInstances: 1
+    branch: main
+    dockerfilePath: ./deploy/render/Dockerfile
+    dockerContext: .
+    healthCheckPath: /healthz
+    envVars:
+      - key: PEAKCUT_ACCOUNTS
+        value: "1"
+      - key: PEAKCUT_AUTO_RELOAD
+        value: "0"
+      - key: PEAKCUT_JOB_WORKERS
+        value: "1"
+      - key: PEAKCUT_MAX_JOBS_PER_USER
+        value: "1"
+      - key: PEAKCUT_MAX_LIVE
+        value: "1"
+      - key: PEAKCUT_MAX_LIVE_PER_USER
+        value: "1"
+      - key: PEAKCUT_MAX_UPLOAD_MB
+        value: "100"
+      - key: PEAKCUT_UPLOAD_PART_MB
+        value: "10"
+      - key: PEAKCUT_MAX_VIDEO_HOURS
+        value: "0.1"
+      - key: PEAKCUT_MAX_LIVE_HOURS
+        value: "0.1"
+      - key: PEAKCUT_MAX_USER_GB
+        value: "1"
+      - key: PEAKCUT_MAX_CREATORS
+        value: "1"
+      - key: PEAKCUT_UPDATE_CHECK
+        value: "0"
+      - key: OMP_NUM_THREADS
+        value: "1"
+      - key: OPENBLAS_NUM_THREADS
+        value: "1"

@@ -1,4 +1,9 @@
 .env
+.env.*
+.venv
+venv
+.bootstrap
+.tools
 secrets
 data
 .claude
